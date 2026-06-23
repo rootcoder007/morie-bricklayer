@@ -2,7 +2,7 @@
 ## setup_and_run.R
 ##
 ## Brick-proof, cross-platform (macOS / Windows / Linux) entrypoint for
-## any morie-reprokit bundle. Driven entirely by config.json and
+## any morie-bricklayer bundle. Driven entirely by config.json and
 ## data_provenance.json — knows nothing about specific datasets.
 ##
 ## What it does:
@@ -23,7 +23,7 @@
 ##   Rscript setup_and_run.R --help
 ##
 ## Licence: AGPL-3.0-or-later
-## Part of morie-reprokit.
+## Part of morie-bricklayer.
 ## =====================================================================
 
 ## ---------- Locate script directory + parse CLI ----------
@@ -72,7 +72,7 @@ if (!requireNamespace("jsonlite", quietly = TRUE)) {
 cfg <- jsonlite::fromJSON(CONFIG_PATH, simplifyVector = FALSE)
 prov <- load_provenance(PROVENANCE_PATH)
 
-PROJECT_NAME    <- cfg$project$name         %||% "reprokit-project"
+PROJECT_NAME    <- cfg$project$name         %||% "bricklayer-project"
 PROJECT_AUTHOR  <- cfg$project$author       %||% "(unknown author)"
 PROJECT_CONTACT <- cfg$project$contact      %||% ""
 PROJECT_LICENCE <- cfg$project$licence      %||% "AGPL-3.0-or-later"
@@ -84,7 +84,7 @@ REQ_PKGS        <- unlist(cfg$r_packages) %||% c()
 OS_KIND <- detect_os()
 
 cat("==========================================================\n")
-cat("  morie-reprokit Reproducibility Runner\n")
+cat("  morie-bricklayer Reproducibility Runner\n")
 cat("  Project: ", PROJECT_NAME, "\n", sep = "")
 cat("  Author:  ", PROJECT_AUTHOR, "\n", sep = "")
 cat("==========================================================\n")
@@ -364,7 +364,7 @@ if (isTRUE(SYNTHETIC_MODE)) {
 }
 
 run_args <- c(ANALYSIS_R, shQuote(input_path), shQuote(output_dir))
-env_vec <- if (isTRUE(SYNTHETIC_MODE)) "REPROKIT_SYNTHETIC=1" else character(0)
+env_vec <- if (isTRUE(SYNTHETIC_MODE)) "BRICKLAYER_SYNTHETIC=1" else character(0)
 exit_code <- system2(rscript_bin, run_args,
                      stdout = log_path, stderr = log_path,
                      env = env_vec)

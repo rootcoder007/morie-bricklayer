@@ -1,4 +1,4 @@
-# Contributing to morie-reprokit
+# Contributing to morie-bricklayer
 
 Thanks for considering a contribution. This kit lives or dies by being **boring and reliable** — academic reviewers should never wonder why something is the way it is.
 

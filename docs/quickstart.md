@@ -1,4 +1,4 @@
-# Quickstart — your first morie-reprokit bundle in 5 minutes
+# Quickstart — your first morie-bricklayer bundle in 5 minutes
 
 This walks you through creating a shippable reproducibility bundle for **your own** analysis script and dataset.
 
@@ -12,8 +12,8 @@ This walks you through creating a shippable reproducibility bundle for **your ow
 ## 1. Clone the kit
 
 ```bash
-git clone https://github.com/morie-oss/morie-reprokit.git
-cd morie-reprokit
+git clone https://github.com/morie-oss/morie-bricklayer.git
+cd morie-bricklayer
 ```
 
 ## 2. Copy the OTIS MRP example to your own project
@@ -76,7 +76,7 @@ It must:
 - Accept the input data file path as argument 1
 - Accept the output folder path as argument 2
 - Write a `manifest.json` to the output folder containing `{ "meta": {...}, "results": { "<check_name>": { "observed": X, "expected": Y, "status": "PASS|DIFFER|INFO", ... } } }`
-- Optionally check `Sys.getenv("REPROKIT_SYNTHETIC")` — if `"1"`, mark all cross-checks as `INFO`
+- Optionally check `Sys.getenv("BRICKLAYER_SYNTHETIC")` — if `"1"`, mark all cross-checks as `INFO`
 
 See `examples/otis-mrp/analysis.R` for a complete working reference.
 
@@ -99,7 +99,7 @@ The output prints the bundle's SHA256 — send that out-of-band to recipients.
 ## 7. Verify before shipping
 
 ```bash
-./reprokit/scripts/verify_bundle.sh dist/my-project_v1.zip
+./bricklayer/scripts/verify_bundle.sh dist/my-project_v1.zip
 ```
 
 Extracts to `~/Desktop/my-project_v1_audit_<timestamp>/`, runs `--quick`, exits non-zero on regression.

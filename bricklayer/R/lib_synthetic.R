@@ -1,7 +1,7 @@
 ## =====================================================================
 ## lib_synthetic.R — schema-driven synthetic data generation
 ##
-## Part of morie-reprokit. The generic primitives here let you build a
+## Part of morie-bricklayer. The generic primitives here let you build a
 ## synthetic CSV from a schema definition without writing project-
 ## specific generator code. Falls back gracefully when the schema is
 ## under-specified.

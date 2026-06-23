@@ -1,7 +1,7 @@
 ## =====================================================================
 ## lib_data_loader.R — open-data discovery, download, schema validation
 ##
-## Part of morie-reprokit. Project-agnostic; project specifics live in
+## Part of morie-bricklayer. Project-agnostic; project specifics live in
 ## data_provenance.json and config.json.
 ##
 ## Provides:

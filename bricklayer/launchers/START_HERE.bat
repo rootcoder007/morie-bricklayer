@@ -1,6 +1,6 @@
 @echo off
 REM ==========================================================
-REM  morie-reprokit Reproducibility Bundle - Windows Launcher
+REM  morie-bricklayer Reproducibility Bundle - Windows Launcher
 REM
 REM  Double-click in File Explorer.
 REM  Requirement: R from https://cran.r-project.org/bin/windows/base/
@@ -12,7 +12,7 @@ cd /d "%~dp0"
 
 cls
 echo ==========================================================
-echo   morie-reprokit Reproducibility Bundle - Windows Launcher
+echo   morie-bricklayer Reproducibility Bundle - Windows Launcher
 echo ==========================================================
 echo.
 

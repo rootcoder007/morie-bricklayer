@@ -78,7 +78,7 @@ INPUT_MODE <- if (grepl("\\.csv$", INPUT_PATH, ignore.case = TRUE)) "csv" else
 ## In this mode, all cross-checks are recorded as INFO (not PASS/DIFFER)
 ## because the data is randomly generated and not expected to match
 ## published values.
-SYNTHETIC_MODE <- isTRUE(nzchar(Sys.getenv("REPROKIT_SYNTHETIC", "")) || nzchar(Sys.getenv("OTIS_SYNTHETIC", "")))
+SYNTHETIC_MODE <- isTRUE(nzchar(Sys.getenv("BRICKLAYER_SYNTHETIC", "")) || nzchar(Sys.getenv("OTIS_SYNTHETIC", "")))
 if (SYNTHETIC_MODE) {
   INPUT_MODE <- "synthetic"
 }

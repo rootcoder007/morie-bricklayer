@@ -1,6 +1,6 @@
 # Data sources
 
-`morie-reprokit` currently has built-in support for **CKAN-hosted** open-data portals (the most common kind, used by Ontario, UK, US federal, Canada federal, etc.). This document describes how to extend the framework to support other sources.
+`morie-bricklayer` currently has built-in support for **CKAN-hosted** open-data portals (the most common kind, used by Ontario, UK, US federal, Canada federal, etc.). This document describes how to extend the framework to support other sources.
 
 ## Currently supported
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # START_HERE.command
 #
-# macOS launcher for any morie-reprokit bundle.
+# macOS launcher for any morie-bricklayer bundle.
 # Double-click in Finder. If Gatekeeper blocks the first run:
 #   Right-click → Open → Open (confirm dialog).
 #
@@ -15,7 +15,7 @@ cd "$(dirname "$0")" || exit 1
 clear
 cat <<'BANNER'
 ==========================================================
-  morie-reprokit Reproducibility Bundle — macOS Launcher
+  morie-bricklayer Reproducibility Bundle — macOS Launcher
 ==========================================================
 
 You don't need any terminal experience — this window will run

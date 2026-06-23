@@ -1,6 +1,6 @@
 # Customization
 
-Every configurable point in `morie-reprokit`, organized by which file controls it.
+Every configurable point in `morie-bricklayer`, organized by which file controls it.
 
 ---
 
@@ -146,7 +146,7 @@ Supported `type` values:
 - `id_pattern` — string templating using `{year}` and `{seq:05d}`
 - `sequence` — integer sequence from `from`
 
-To add new types, edit `reprokit/R/lib_synthetic.R`.
+To add new types, edit `bricklayer/R/lib_synthetic.R`.
 
 ---
 
@@ -191,11 +191,11 @@ Status values: `PASS`, `DIFFER`, `INFO`.
 
 The libraries `lib_manifest.R::record()` and `lib_manifest.R::write_manifest_json()` exist exactly to make this easy. Source them from your analysis.R if you want.
 
-If `Sys.getenv("REPROKIT_SYNTHETIC")` is `"1"`, your script should mark all cross-checks as `INFO` rather than `PASS/DIFFER` — the comparison isn't meaningful on random data.
+If `Sys.getenv("BRICKLAYER_SYNTHETIC")` is `"1"`, your script should mark all cross-checks as `INFO` rather than `PASS/DIFFER` — the comparison isn't meaningful on random data.
 
 ---
 
-## Templates (`reprokit/templates/`)
+## Templates (`bricklayer/templates/`)
 
 All four templates use `{{variable}}` substitution at bundle build time. Variables available:
 
@@ -206,7 +206,7 @@ All four templates use `{{variable}}` substitution at bundle build time. Variabl
 | `{{licence_name}}`, `{{licence_url}}`, `{{data_licence}}` | `data_provenance.json` → `dataset.*` |
 | `{{retrieved_at}}` | `data_provenance.json` → `captured_at_utc` |
 | `{{build_date}}` | Today (`date -u +%Y-%m-%d`) |
-| `{{reprokit_version}}` | Set in `make_bundle.sh` |
+| `{{bricklayer_version}}` | Set in `make_bundle.sh` |
 | `{{bundle_filename}}`, `{{bundle_sha256}}` | Computed at build time |
 
 To add new placeholders, edit the substitution map in `make_bundle.sh`.

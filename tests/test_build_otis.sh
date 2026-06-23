@@ -37,7 +37,7 @@ echo "  Found: ${BUNDLE}"
 
 echo
 echo "[3/3] Auditing via verify_bundle.sh..."
-./reprokit/scripts/verify_bundle.sh "${BUNDLE}" --clean
+./bricklayer/scripts/verify_bundle.sh "${BUNDLE}" --clean
 RC=$?
 
 if [[ ${RC} -eq 0 ]]; then

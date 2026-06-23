@@ -1,7 +1,7 @@
 ## =====================================================================
 ## lib_helpers.R — interactive prompts, OS detection, path helpers
 ##
-## Part of morie-reprokit. Project-agnostic — no domain knowledge here.
+## Part of morie-bricklayer. Project-agnostic — no domain knowledge here.
 ##
 ## Provides:
 ##   say(...)                                Console writer
@@ -78,7 +78,7 @@ ask_menu <- function(prompt, options, default_index = 1L, quick = FALSE) {
 ## tools::R_user_dir(project_name, "data").
 ask_save_location <- function(prompt, default_key = "bundle",
                               script_dir,
-                              project_name = "reprokit-project",
+                              project_name = "bricklayer-project",
                               quick = FALSE) {
   home <- Sys.getenv("HOME", path.expand("~"))
   r_user_dir <- tryCatch(tools::R_user_dir(project_name, which = "data"),

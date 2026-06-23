@@ -1,4 +1,4 @@
-# morie-reprokit
+# morie-bricklayer
 
 **Brick-proof reproducibility bundles for academic data analysis.**
 
@@ -8,7 +8,7 @@ Turn an R analysis script + a public dataset into a polished, cross-platform rep
 
 ## Why this exists
 
-Academic reproducibility usually fails at one of three places: (a) the data is gone or behind a paywall; (b) the code assumes a specific OS or shell; (c) the reviewer can't be bothered to fight a 12-step setup. `morie-reprokit` addresses all three with **defense in depth**:
+Academic reproducibility usually fails at one of three places: (a) the data is gone or behind a paywall; (b) the code assumes a specific OS or shell; (c) the reviewer can't be bothered to fight a 12-step setup. `morie-bricklayer` addresses all three with **defense in depth**:
 
 - **Cross-platform launchers** — `START_HERE.command` (macOS), `START_HERE.bat` (Windows), `start_here.sh` (Linux), all routing to a single pure-R orchestrator
 - **Future-proof data fetching** — CKAN API resolution by package slug + name pattern, with pinned URL + SHA256 fallback and Wayback Machine hooks
@@ -53,8 +53,8 @@ results_YYYYMMDD-HHMMSS/
 ## Quickstart for a new project
 
 ```bash
-git clone https://github.com/<you>/morie-reprokit.git
-cd morie-reprokit
+git clone https://github.com/<you>/morie-bricklayer.git
+cd morie-bricklayer
 cp -r examples/otis-mrp examples/my-project
 # Edit examples/my-project/config.json (data URL, schema, author, etc.)
 # Replace examples/my-project/analysis.R with your own R script
@@ -79,7 +79,7 @@ See `docs/quickstart.md` for a 5-minute walkthrough.
 
 ## Author & licence
 
-`morie-reprokit` is part of the [morie](https://github.com/) open-source toolkit ecosystem.
+`morie-bricklayer` is part of the [morie](https://github.com/) open-source toolkit ecosystem.
 
 - **Author:** Vansh Singh Ruhela — vansh.ruhela@mail.utoronto.ca
 - **ORCID:** 0009-0004-1750-3592

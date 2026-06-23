@@ -14,8 +14,8 @@
 
 set -euo pipefail
 
-REPROKIT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPROKIT_VERSION="0.1"
+BRICKLAYER_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BRICKLAYER_VERSION="0.1"
 
 PROJECT=""
 DATA_PATH=""
@@ -33,7 +33,7 @@ done
 
 [[ -z "${PROJECT}" ]] && { echo "ERROR: project name required (e.g. ./make_bundle.sh otis-mrp)"; exit 1; }
 
-PROJECT_DIR="${REPROKIT_ROOT}/examples/${PROJECT}"
+PROJECT_DIR="${BRICKLAYER_ROOT}/examples/${PROJECT}"
 [[ ! -d "${PROJECT_DIR}" ]] && { echo "ERROR: ${PROJECT_DIR} not found"; exit 2; }
 
 CONFIG="${PROJECT_DIR}/config.json"
@@ -98,16 +98,16 @@ echo "  Stage:     ${STAGE}"
 echo
 
 # --- Copy R libs + setup_and_run.R ---
-cp "${REPROKIT_ROOT}/reprokit/R/lib_helpers.R"     "${STAGE}/"
-cp "${REPROKIT_ROOT}/reprokit/R/lib_data_loader.R" "${STAGE}/"
-cp "${REPROKIT_ROOT}/reprokit/R/lib_synthetic.R"   "${STAGE}/"
-cp "${REPROKIT_ROOT}/reprokit/R/lib_manifest.R"    "${STAGE}/"
-cp "${REPROKIT_ROOT}/reprokit/R/setup_and_run.R"   "${STAGE}/"
+cp "${BRICKLAYER_ROOT}/bricklayer/R/lib_helpers.R"     "${STAGE}/"
+cp "${BRICKLAYER_ROOT}/bricklayer/R/lib_data_loader.R" "${STAGE}/"
+cp "${BRICKLAYER_ROOT}/bricklayer/R/lib_synthetic.R"   "${STAGE}/"
+cp "${BRICKLAYER_ROOT}/bricklayer/R/lib_manifest.R"    "${STAGE}/"
+cp "${BRICKLAYER_ROOT}/bricklayer/R/setup_and_run.R"   "${STAGE}/"
 
 # --- Copy OS launchers ---
-cp "${REPROKIT_ROOT}/reprokit/launchers/"START_HERE.command "${STAGE}/"
-cp "${REPROKIT_ROOT}/reprokit/launchers/"START_HERE.bat     "${STAGE}/"
-cp "${REPROKIT_ROOT}/reprokit/launchers/"start_here.sh      "${STAGE}/"
+cp "${BRICKLAYER_ROOT}/bricklayer/launchers/"START_HERE.command "${STAGE}/"
+cp "${BRICKLAYER_ROOT}/bricklayer/launchers/"START_HERE.bat     "${STAGE}/"
+cp "${BRICKLAYER_ROOT}/bricklayer/launchers/"start_here.sh      "${STAGE}/"
 
 # --- Copy project-specific files ---
 cp "${PROJECT_DIR}/config.json"            "${STAGE}/"
@@ -142,7 +142,7 @@ subs = {
   "filename":       "${FILENAME}",
   "retrieved_at":   "${RETRIEVED_AT}",
   "build_date":     "${BUILD_DATE}",
-  "reprokit_version": "${REPROKIT_VERSION}",
+  "bricklayer_version": "${BRICKLAYER_VERSION}",
   "bundle_filename": "${BASENAME}.zip",
   "bundle_sha256":  "(computed after build — see make_bundle.sh output)",
   "expected_pass_real": "see config.json",
@@ -156,23 +156,23 @@ open("${out}", "w").write(tmpl)
 PYEOF
 }
 
-render_template "${REPROKIT_ROOT}/reprokit/templates/README.md.tmpl"       "${STAGE}/README.md"
-render_template "${REPROKIT_ROOT}/reprokit/templates/SECURITY.md.tmpl"     "${STAGE}/SECURITY.md"
-render_template "${REPROKIT_ROOT}/reprokit/templates/INSTRUCTIONS.txt.tmpl" "${STAGE}/INSTRUCTIONS.txt"
+render_template "${BRICKLAYER_ROOT}/bricklayer/templates/README.md.tmpl"       "${STAGE}/README.md"
+render_template "${BRICKLAYER_ROOT}/bricklayer/templates/SECURITY.md.tmpl"     "${STAGE}/SECURITY.md"
+render_template "${BRICKLAYER_ROOT}/bricklayer/templates/INSTRUCTIONS.txt.tmpl" "${STAGE}/INSTRUCTIONS.txt"
 
 # --- Optionally vendor the data file ---
 if [[ -n "${DATA_PATH}" ]]; then
   [[ ! -f "${DATA_PATH}" ]] && { echo "ERROR: --with-data file not found: ${DATA_PATH}"; exit 4; }
   TARGET_NAME="${FILENAME:-$(basename "${DATA_PATH}")}"
   cp "${DATA_PATH}" "${STAGE}/${TARGET_NAME}"
-  render_template "${REPROKIT_ROOT}/reprokit/templates/DATA_NOTICE.md.tmpl" "${STAGE}/DATA_NOTICE.md"
+  render_template "${BRICKLAYER_ROOT}/bricklayer/templates/DATA_NOTICE.md.tmpl" "${STAGE}/DATA_NOTICE.md"
 fi
 
 # --- Make scripts executable ---
 chmod +x "${STAGE}"/*.sh "${STAGE}"/*.command 2>/dev/null || true
 
 # --- Zip up ---
-DIST="${REPROKIT_ROOT}/dist"
+DIST="${BRICKLAYER_ROOT}/dist"
 mkdir -p "${DIST}"
 ZIP_PATH="${DIST}/${BASENAME}.zip"
 ( cd "$(dirname "${STAGE}")" && zip -rq "${ZIP_PATH}" "$(basename "${STAGE}")" )

@@ -52,7 +52,7 @@ Almost always a VPN. Three specific patterns:
 Use the included helper:
 
 ```bash
-./reprokit/scripts/wayback_batch_archive.sh --from-ckan your-dataset-slug
+./bricklayer/scripts/wayback_batch_archive.sh --from-ckan your-dataset-slug
 ```
 
 It enumerates every resource on the CKAN package, submits each to Wayback with a 22-second delay (anonymous Wayback allows ~4 saves/minute), retries any 429s, and writes a JSON inventory you can drop into `data_provenance.json`. Designed for the once-per-year "new fiscal year release" rhythm.
@@ -71,7 +71,7 @@ Some email systems strip `.bat` and `.command` files from attachments even insid
 
 ### How do I add a new "save location" option to the menu?
 
-Edit `ask_save_location()` in `reprokit/R/lib_helpers.R`. Add an entry to the `locs` list with a `label` and `path`. Keep the allow-list short and explicitly safe — the point of the menu is to prevent the script from writing to surprising places.
+Edit `ask_save_location()` in `bricklayer/R/lib_helpers.R`. Add an entry to the `locs` list with a `label` and `path`. Keep the allow-list short and explicitly safe — the point of the menu is to prevent the script from writing to surprising places.
 
 ### Can I publish a bundle without making it open-source?
 

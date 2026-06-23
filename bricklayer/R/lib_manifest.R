@@ -1,7 +1,7 @@
 ## =====================================================================
 ## lib_manifest.R — cross-check accounting + SUMMARY.txt + manifest.json
 ##
-## Part of morie-reprokit. Provides the `record()` machinery and the
+## Part of morie-bricklayer. Provides the `record()` machinery and the
 ## end-of-run summary writers.
 ##
 ## Provides:
