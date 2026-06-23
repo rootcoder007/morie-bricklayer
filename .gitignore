@@ -39,3 +39,4 @@ SYNTHETIC_*.csv
 # Downloaded test data (will be re-fetched on demand)
 examples/*/a01_*.csv
 examples/*/correctional_*.RData
+PUSH_TO_GITHUB.md
