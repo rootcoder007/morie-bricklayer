@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 ## =====================================================================
 ## lib_synthetic.R — schema-driven synthetic data generation
 ##
@@ -47,6 +48,27 @@
 ## Licence: AGPL-3.0-or-later
 ## =====================================================================
 
+#' Generate One Synthetic Column From a Spec
+#'
+#' Builds a single synthetic data column according to a column spec drawn
+#' from a provenance synthetic recipe. Supported `type`s are `"sample"`
+#' (categorical, optionally weighted), `"bernoulli"` (two-label draw with
+#' optional per-row base rate), `"poisson"` (counts with a floor),
+#' `"id_pattern"` (templated IDs, optionally per-year sequenced), and
+#' `"sequence"` (a running integer sequence).
+#'
+#' @param spec A list describing the column; recognised fields depend on
+#'   `spec$type` (e.g. `values`, `weights`, `p`, `p_with_baserate`,
+#'   `labels`, `lambda`, `min`, `pattern`, `year_col`, `from`).
+#' @param n Number of values to generate.
+#' @param ctx Named list of already-generated columns, letting later
+#'   columns (such as `id_pattern` with a `year_col`) reference earlier
+#'   ones. Defaults to an empty list.
+#' @param base_p Optional numeric vector of per-row latent propensities
+#'   used by the `"bernoulli"` type to add row-level variation.
+#' @return A vector of length `n` for the requested column type. Errors on
+#'   an unknown `type`.
+#' @export
 make_synthetic_column <- function(spec, n, ctx = list(), base_p = NULL) {
   type <- spec$type %||% "sample"
   switch(type,
@@ -91,11 +113,40 @@ make_synthetic_column <- function(spec, n, ctx = list(), base_p = NULL) {
   )
 }
 
+#' Null-Coalescing Operator
+#'
+#' Returns `a` unless it is `NULL`, in which case it returns `b`.
+#'
+#' @param a Left-hand value.
+#' @param b Fallback used when `a` is `NULL`.
+#' @return `a` if it is not `NULL`, otherwise `b`.
+#' @keywords internal
+#' @noRd
 `%||%` <- function(a, b) if (is.null(a)) b else a
 
 ## ----- Main generator -----
 ## `schema` is the synthetic_recipe sub-block of provenance.
 ## `out_path` is where to write the CSV.
+
+#' Generate a Synthetic CSV From a Schema Recipe
+#'
+#' Generates a reproducible synthetic data set from the
+#' `schema$synthetic_recipe` block of a provenance object and writes it to
+#' a CSV. Columns are produced in declaration order so later columns can
+#' reference earlier ones, a shared per-row latent propensity drives any
+#' Bernoulli columns, and an optional row-replication block expands
+#' per-person rows.
+#'
+#' @param schema The synthetic recipe (a list with `columns`, and optional
+#'   `n_rows`, `seed`, and `row_replication`).
+#' @param out_path Path where the CSV is written.
+#' @param n_rows Number of rows (persons, if replicating) to generate.
+#'   Defaults to `schema$n_rows`, then 50000.
+#' @param seed Random seed for reproducibility. Defaults to `schema$seed`,
+#'   then 91735246.
+#' @return Invisibly, a list with `path`, `rows` (rows written), and
+#'   `seed` used.
+#' @export
 make_synthetic_csv <- function(schema, out_path,
                                 n_rows = NULL, seed = NULL) {
   if (is.null(seed)) seed <- schema$seed %||% 91735246L
