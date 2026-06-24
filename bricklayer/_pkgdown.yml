@@ -1,0 +1,6 @@
+url: https://rootcoder007.github.io/rmorie-bricklayer/
+template:
+  bootstrap: 5
+  includes:
+    in_header: |
+      <meta name="google-site-verification" content="8ORzeHrfoPIOrujfV-km-kXCi9HD8dvL5GYH-GqwjYI">
