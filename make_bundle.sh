@@ -102,7 +102,7 @@ cp "${BRICKLAYER_ROOT}/bricklayer/R/lib_helpers.R"     "${STAGE}/"
 cp "${BRICKLAYER_ROOT}/bricklayer/R/lib_data_loader.R" "${STAGE}/"
 cp "${BRICKLAYER_ROOT}/bricklayer/R/lib_synthetic.R"   "${STAGE}/"
 cp "${BRICKLAYER_ROOT}/bricklayer/R/lib_manifest.R"    "${STAGE}/"
-cp "${BRICKLAYER_ROOT}/bricklayer/R/setup_and_run.R"   "${STAGE}/"
+cp "${BRICKLAYER_ROOT}/bricklayer/inst/scripts/setup_and_run.R"   "${STAGE}/"
 
 # --- Copy OS launchers ---
 cp "${BRICKLAYER_ROOT}/bricklayer/launchers/"START_HERE.command "${STAGE}/"
