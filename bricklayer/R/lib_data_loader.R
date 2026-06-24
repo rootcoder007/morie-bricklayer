@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 ## =====================================================================
-## lib_data_loader.R — open-data discovery, download, schema validation
+## lib_data_loader.R -- open-data discovery, download, schema validation
 ##
 ## Part of rmorie-bricklayer. Project-agnostic; project specifics live in
 ## data_provenance.json and config.json.
@@ -103,7 +103,7 @@ resolve_via_ckan_search <- function(provenance) {
               provenance$dataset$ckan_api_endpoint %||% "")
   if (!nzchar(base)) return(NULL)
   api_url <- sprintf("%s/api/3/action/package_search?q=%s",
-                     base, URLencode(q, reserved = TRUE))
+                     base, utils::URLencode(q, reserved = TRUE))
   resp <- tryCatch(jsonlite::fromJSON(api_url, simplifyVector = FALSE),
                    error = function(e) NULL)
   if (is.null(resp)) return(NULL)
@@ -182,29 +182,29 @@ friendly_download <- function(url, target_path, attempt_wayback = NULL) {
     cat("    Error: ", msg, "\n\n", sep = "")
     cat("  Common causes (in rough order of likelihood):\n")
     if (grepl("429|too many|rate", msg, ignore.case = TRUE)) {
-      cat("    • Rate-limited (HTTP 429). VPNs share IPs across users\n")
+      cat("    * Rate-limited (HTTP 429). VPNs share IPs across users\n")
       cat("      and often trip rate limits. Try disabling your VPN.\n")
     }
     if (grepl("SSL|TLS|certificate|handshake|UNEXPECTED_EOF",
               msg, ignore.case = TRUE)) {
-      cat("    • SSL/TLS handshake failed.\n")
+      cat("    * SSL/TLS handshake failed.\n")
       cat("      VPNs with TLS inspection (Cisco AnyConnect, GlobalProtect,\n")
       cat("      Zscaler, NetSkope) break R's HTTPS. Try disabling.\n")
     }
     if (grepl("could not|unable to resolve|name not|getaddrinfo",
               msg, ignore.case = TRUE))
-      cat("    • DNS lookup failed; check network connectivity.\n")
+      cat("    * DNS lookup failed; check network connectivity.\n")
     if (grepl("timeout|timed out|connection (refused|reset)",
               msg, ignore.case = TRUE))
-      cat("    • Connection timed out / refused (firewall, often institutional).\n")
+      cat("    * Connection timed out / refused (firewall, often institutional).\n")
     if (grepl("403|forbidden", msg, ignore.case = TRUE))
-      cat("    • HTTP 403 Forbidden (geo-restriction; try a different VPN region).\n")
+      cat("    * HTTP 403 Forbidden (geo-restriction; try a different VPN region).\n")
     cat("\n")
     if (!is.null(attempt_wayback) && nzchar(attempt_wayback)) {
       cat("  Trying Wayback Machine fallback snapshot...\n")
       tryCatch({
         utils::download.file(attempt_wayback, target_path, mode = "wb", quiet = FALSE)
-        cat("  ✓ Wayback snapshot retrieved.\n")
+        cat("  [ok] Wayback snapshot retrieved.\n")
         return(TRUE)
       }, error = function(e2) {
         cat("  ! Wayback fallback also failed: ", conditionMessage(e2), "\n")

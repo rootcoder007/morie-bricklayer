@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 ## =====================================================================
-## lib_manifest.R — cross-check accounting + SUMMARY.txt + manifest.json
+## lib_manifest.R -- cross-check accounting + SUMMARY.txt + manifest.json
 ##
 ## Part of rmorie-bricklayer. Provides the `record()` machinery and the
 ## end-of-run summary writers.
@@ -76,7 +76,7 @@ record <- function(manifest, name, observed, expected,
     status   = status,
     tol      = tol,
     note     = if (isTRUE(synthetic))
-                  "synthetic data — comparison not meaningful" else NULL
+                  "synthetic data -- comparison not meaningful" else NULL
   )
   cat(sprintf("  %-44s observed = %-12s expected = %-12s [%s]\n",
               name,
@@ -156,7 +156,7 @@ write_summary_txt <- function(manifest, output_dir, paths,
   lines <- c(
     "##########################################################",
     "#                                                        #",
-    "#   REPRODUCIBILITY RUN — SUMMARY                        #",
+    "#   REPRODUCIBILITY RUN -- SUMMARY                        #",
     "#                                                        #",
     "##########################################################",
     "",
@@ -167,11 +167,11 @@ write_summary_txt <- function(manifest, output_dir, paths,
     paste0("OS:        ", manifest$meta$os %||% Sys.info()[["sysname"]]),
     paste0("R:         ", manifest$meta$r_version %||% R.version.string),
     paste0("Mode:      ", if (is_synth)
-                            "SYNTHETIC (not real data — pipeline check only)"
+                            "SYNTHETIC (not real data -- pipeline check only)"
                           else "real data"),
     "",
     "----------------------------------------------------------",
-    "  PATHS — exact absolute locations used in this run",
+    "  PATHS -- exact absolute locations used in this run",
     "----------------------------------------------------------"
   )
   for (nm in names(paths)) {

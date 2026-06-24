@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 ## =====================================================================
-## lib_synthetic.R — schema-driven synthetic data generation
+## lib_synthetic.R -- schema-driven synthetic data generation
 ##
 ## Part of rmorie-bricklayer. The generic primitives here let you build a
 ## synthetic CSV from a schema definition without writing project-
@@ -95,7 +95,7 @@ make_synthetic_column <- function(spec, n, ctx = list(), base_p = NULL) {
       year_col <- spec$year_col %||% NULL
       if (!is.null(year_col) && year_col %in% names(ctx)) {
         years <- ctx[[year_col]]
-        seq_per_yr <- ave(seq_along(years), years, FUN = seq_along)
+        seq_per_yr <- stats::ave(seq_along(years), years, FUN = seq_along)
         ids <- mapply(function(y, s) {
           out <- gsub("\\{year\\}", as.character(y), pattern)
           gsub("\\{seq:05d\\}", sprintf("%05d", s), out)
@@ -165,7 +165,7 @@ make_synthetic_csv <- function(schema, out_path,
     expand <- identity
   }
 
-  ## Latent per-row "baseline propensity" — shared across bernoulli cols
+  ## Latent per-row "baseline propensity" -- shared across bernoulli cols
   base_p <- stats::runif(n_rows, 0, 1)
 
   ## Generate columns in declaration order; later columns can see ctx

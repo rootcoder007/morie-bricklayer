@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 ## =====================================================================
-## lib_helpers.R — interactive prompts, OS detection, path helpers
+## lib_helpers.R -- interactive prompts, OS detection, path helpers
 ##
-## Part of rmorie-bricklayer. Project-agnostic — no domain knowledge here.
+## Part of rmorie-bricklayer. Project-agnostic -- no domain knowledge here.
 ##
 ## Provides:
 ##   say(...)                                Console writer
@@ -169,7 +169,7 @@ ask_save_location <- function(prompt, default_key = "bundle",
   locs <- list(
     bundle    = list(label = paste0("This bundle folder  (",
                                     script_dir,
-                                    ", self-contained — recommended)"),
+                                    ", self-contained -- recommended)"),
                      path  = script_dir),
     downloads = list(label = paste0("Downloads folder    (",
                                     file.path(home, "Downloads"),
