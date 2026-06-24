@@ -1,7 +1,85 @@
-Tools for building brick-proof, reproducible data bundles. Resolves
-open-data sources through CKAN package_show and package_search
-endpoints, records and verifies provenance with SHA256 digests and
-Wayback Machine snapshots, validates downloaded data against a pinned
-schema, and falls back to schema-driven synthetic data when the real
-source is unreachable. Run records are captured in a manifest plus a
-plain-language summary so any result can be traced back to its inputs.
+# rmoriebricklayer
+
+> Brick-proof, reproducible data bundles for R.
+
+`rmoriebricklayer` resolves open-data sources, records and verifies
+provenance, validates downloaded data against a pinned schema, and falls
+back to schema-driven synthetic data when the real source is unreachable
+— so any analysis result can be traced back to its exact inputs.
+
+## What it does
+
+- **CKAN resolution** —
+  [`resolve_via_ckan()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/resolve_via_ckan.md)
+  /
+  [`resolve_via_ckan_search()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/resolve_via_ckan_search.md)
+  locate resources through a portal’s `package_show` / `package_search`
+  endpoints.
+- **Provenance** —
+  [`load_provenance()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/load_provenance.md),
+  [`make_manifest()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/make_manifest.md),
+  [`record()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/record.md),
+  [`write_manifest_json()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/write_manifest_json.md),
+  and
+  [`write_summary_txt()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/write_summary_txt.md)
+  capture every run as a manifest plus a plain-language summary.
+- **Integrity** —
+  [`sha256_file()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/sha256_file.md)
+  /
+  [`verify_sha256()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/verify_sha256.md)
+  hash and verify downloads;
+  [`download_data()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/download_data.md)
+  /
+  [`friendly_download()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/friendly_download.md)
+  fetch with a Wayback Machine fallback.
+- **Schema validation** —
+  [`validate_schema()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/validate_schema.md)
+  /
+  [`apply_schema_validation()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/apply_schema_validation.md)
+  check data against a pinned schema.
+- **Synthetic fallback** —
+  [`make_synthetic_column()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/make_synthetic_column.md)
+  /
+  [`make_synthetic_csv()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/make_synthetic_csv.md)
+  generate schema-driven stand-ins when the real source is down, so a
+  pipeline still runs end-to-end.
+
+## Installation
+
+``` r
+
+install.packages(
+  "rmoriebricklayer",
+  repos = c("https://rootcoder007.r-universe.dev",
+            "https://cloud.r-project.org")
+)
+```
+
+## Quick example
+
+``` r
+
+library(rmoriebricklayer)
+
+prov <- load_provenance("provenance.json")     # pinned source + schema + hash
+res  <- resolve_via_ckan(prov)                  # find the resource on the portal
+path <- friendly_download(res$url, "data.csv")  # download (Wayback fallback)
+verify_sha256(path, prov$sha256)                # integrity check
+df   <- validate_schema(read.csv(path), prov)   # schema-validated data frame
+
+man  <- make_manifest(project = "my-study")
+record(man, "input", path)                      # trace the input
+write_manifest_json(man, "manifest.json")
+```
+
+## Part of the MORIE family
+
+`rmoriebricklayer` is the reproducibility / provenance layer of the
+[MORIE](https://github.com/rootcoder007/morie) ecosystem, alongside
+[rmorie](https://github.com/rootcoder007/rmorie),
+[rmoriedata](https://github.com/rootcoder007/rmoriedata), and
+[rmorielite](https://github.com/rootcoder007/rmorielite).
+
+## License
+
+AGPL-3.0-or-later.

@@ -46,8 +46,66 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9">
-Tools for building brick-proof, reproducible data bundles. Resolves open-data sources through CKAN package_show and package_search endpoints, records and verifies provenance with SHA256 digests and Wayback Machine snapshots, validates downloaded data against a pinned schema, and falls back to schema-driven synthetic data when the real source is unreachable. Run records are captured in a manifest plus a plain-language summary so any result can be traced back to its inputs.
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header"><h1 id="rmoriebricklayer">rmoriebricklayer<a class="anchor" aria-label="anchor" href="#rmoriebricklayer"></a>
+</h1></div>
+<blockquote>
+<p>Brick-proof, reproducible data bundles for R.</p>
+</blockquote>
+<p><code>rmoriebricklayer</code> resolves open-data sources, records and verifies provenance, validates downloaded data against a pinned schema, and falls back to schema-driven synthetic data when the real source is unreachable — so any analysis result can be traced back to its exact inputs.</p>
+<div class="section level2">
+<h2 id="what-it-does">What it does<a class="anchor" aria-label="anchor" href="#what-it-does"></a>
+</h2>
+<ul>
+<li>
+<strong>CKAN resolution</strong> — <code><a href="reference/resolve_via_ckan.html">resolve_via_ckan()</a></code> / <code><a href="reference/resolve_via_ckan_search.html">resolve_via_ckan_search()</a></code> locate resources through a portal’s <code>package_show</code> / <code>package_search</code> endpoints.</li>
+<li>
+<strong>Provenance</strong> — <code><a href="reference/load_provenance.html">load_provenance()</a></code>, <code><a href="reference/make_manifest.html">make_manifest()</a></code>, <code><a href="reference/record.html">record()</a></code>, <code><a href="reference/write_manifest_json.html">write_manifest_json()</a></code>, and <code><a href="reference/write_summary_txt.html">write_summary_txt()</a></code> capture every run as a manifest plus a plain-language summary.</li>
+<li>
+<strong>Integrity</strong> — <code><a href="reference/sha256_file.html">sha256_file()</a></code> / <code><a href="reference/verify_sha256.html">verify_sha256()</a></code> hash and verify downloads; <code><a href="reference/download_data.html">download_data()</a></code> / <code><a href="reference/friendly_download.html">friendly_download()</a></code> fetch with a Wayback Machine fallback.</li>
+<li>
+<strong>Schema validation</strong> — <code><a href="reference/validate_schema.html">validate_schema()</a></code> / <code><a href="reference/apply_schema_validation.html">apply_schema_validation()</a></code> check data against a pinned schema.</li>
+<li>
+<strong>Synthetic fallback</strong> — <code><a href="reference/make_synthetic_column.html">make_synthetic_column()</a></code> / <code><a href="reference/make_synthetic_csv.html">make_synthetic_csv()</a></code> generate schema-driven stand-ins when the real source is down, so a pipeline still runs end-to-end.</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span></span>
+<span>  <span class="st">"rmoriebricklayer"</span>,</span>
+<span>  repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"https://rootcoder007.r-universe.dev"</span>,</span>
+<span>            <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="quick-example">Quick example<a class="anchor" aria-label="anchor" href="#quick-example"></a>
+</h2>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rootcoder007/rmorie-bricklayer" class="external-link">rmoriebricklayer</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">prov</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/load_provenance.html">load_provenance</a></span><span class="op">(</span><span class="st">"provenance.json"</span><span class="op">)</span>     <span class="co"># pinned source + schema + hash</span></span>
+<span><span class="va">res</span>  <span class="op">&lt;-</span> <span class="fu"><a href="reference/resolve_via_ckan.html">resolve_via_ckan</a></span><span class="op">(</span><span class="va">prov</span><span class="op">)</span>                  <span class="co"># find the resource on the portal</span></span>
+<span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/friendly_download.html">friendly_download</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">url</span>, <span class="st">"data.csv"</span><span class="op">)</span>  <span class="co"># download (Wayback fallback)</span></span>
+<span><span class="fu"><a href="reference/verify_sha256.html">verify_sha256</a></span><span class="op">(</span><span class="va">path</span>, <span class="va">prov</span><span class="op">$</span><span class="va">sha256</span><span class="op">)</span>                <span class="co"># integrity check</span></span>
+<span><span class="va">df</span>   <span class="op">&lt;-</span> <span class="fu"><a href="reference/validate_schema.html">validate_schema</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span>, <span class="va">prov</span><span class="op">)</span>   <span class="co"># schema-validated data frame</span></span>
+<span></span>
+<span><span class="va">man</span>  <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_manifest.html">make_manifest</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">"my-study"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/record.html">record</a></span><span class="op">(</span><span class="va">man</span>, <span class="st">"input"</span>, <span class="va">path</span><span class="op">)</span>                      <span class="co"># trace the input</span></span>
+<span><span class="fu"><a href="reference/write_manifest_json.html">write_manifest_json</a></span><span class="op">(</span><span class="va">man</span>, <span class="st">"manifest.json"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="part-of-the-morie-family">Part of the MORIE family<a class="anchor" aria-label="anchor" href="#part-of-the-morie-family"></a>
+</h2>
+<p><code>rmoriebricklayer</code> is the reproducibility / provenance layer of the <a href="https://github.com/rootcoder007/morie" class="external-link">MORIE</a> ecosystem, alongside <a href="https://github.com/rootcoder007/rmorie" class="external-link">rmorie</a>, <a href="https://github.com/rootcoder007/rmoriedata" class="external-link">rmoriedata</a>, and <a href="https://github.com/rootcoder007/rmorielite" class="external-link">rmorielite</a>.</p>
+</div>
+<div class="section level2">
+<h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
+</h2>
+<p>AGPL-3.0-or-later.</p>
+</div>
+</div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
