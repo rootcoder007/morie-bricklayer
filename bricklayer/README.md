@@ -1,5 +1,7 @@
 # rmoriebricklayer
 
+[![r-universe](https://rootcoder007.r-universe.dev/badges/rmoriebricklayer)](https://rootcoder007.r-universe.dev/rmoriebricklayer)
+
 > Brick-proof, reproducible data bundles for R.
 
 `rmoriebricklayer` resolves open-data sources, records and verifies
