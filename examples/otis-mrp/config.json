@@ -23,6 +23,10 @@
     "data.table", "MatchIt", "glmmTMB", "lme4",
     "DHARMa", "Hmisc", "jsonlite", "digest"
   ],
+  "r_packages_optional": {
+    "_comment": "Heavy; only needed if the reviewer opts into the DML recompute (OTIS_DML_RECOMPUTE=1). Installed on demand, not required for the 28 deterministic checks.",
+    "packages": ["DoubleML", "mlr3", "mlr3learners"]
+  },
 
   "data": {
     "default_candidates": [
@@ -54,6 +58,10 @@
   "expected": {
     "total_checks": 36,
     "pass_real":    36,
-    "pass_csv":     28
+    "pass_csv":     28,
+    "_recompute_comment": "With the optional heavy DML recompute (OTIS_DML_RECOMPUTE=1), the 8 DML checks reproduce from public data within +/-0.02 (reference run matched to ~0.00004) and a 37th aggregate confirmation is added -> 37/37.",
+    "pass_csv_recompute":   37,
+    "total_checks_recompute": 37,
+    "dml_recompute_tol":    0.02
   }
 }
