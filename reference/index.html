@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rmoriebricklayer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,6 +46,27 @@
 
         </dt>
         <dd>Apply Schema Validation, Stopping on Fatal Issues</dd>
+
+        <dt>
+
+          <code><a href="ascii_fallback.html">ascii_fallback()</a></code>
+
+        </dt>
+        <dd>Use Text As-Is, Falling Back to ASCII When It Cannot Be Represented</dd>
+
+        <dt>
+
+          <code><a href="core_normal_pdf.html">core_normal_pdf()</a></code>
+
+        </dt>
+        <dd>Normal density (C backend)</dd>
+
+        <dt>
+
+          <code><a href="core_sha256.html">core_sha256()</a></code>
+
+        </dt>
+        <dd>SHA-256 hex digest (C backend)</dd>
 
         <dt>
 
@@ -112,10 +133,24 @@
 
         <dt>
 
+          <code><a href="rmbl_core_stats.html">core_mean()</a></code> <code><a href="rmbl_core_stats.html">core_var()</a></code> <code><a href="rmbl_core_stats.html">core_cor()</a></code>
+
+        </dt>
+        <dd>Fast summary statistics (C backend)</dd>
+
+        <dt>
+
           <code><a href="sha256_file.html">sha256_file()</a></code>
 
         </dt>
         <dd>Compute a File's SHA256 Digest</dd>
+
+        <dt>
+
+          <code><a href="to_ascii.html">to_ascii()</a></code>
+
+        </dt>
+        <dd>Transliterate Text to Plain ASCII</dd>
 
         <dt>
 
@@ -151,6 +186,13 @@
 
         </dt>
         <dd>Write a Plain-Language Run Summary</dd>
+
+        <dt>
+
+          <code><a href="write_text_fallback.html">write_text_fallback()</a></code>
+
+        </dt>
+        <dd>Write Text as UTF-8, Falling Back to ASCII on an Encoding Error</dd>
       </dl></div>
   </main></div>
 

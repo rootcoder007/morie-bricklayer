@@ -3,6 +3,9 @@
 <url><loc>https://rootcoder007.github.io/rmorie-bricklayer/authors.html</loc></url>
 <url><loc>https://rootcoder007.github.io/rmorie-bricklayer/index.html</loc></url>
 <url><loc>https://rootcoder007.github.io/rmorie-bricklayer/reference/apply_schema_validation.html</loc></url>
+<url><loc>https://rootcoder007.github.io/rmorie-bricklayer/reference/ascii_fallback.html</loc></url>
+<url><loc>https://rootcoder007.github.io/rmorie-bricklayer/reference/core_normal_pdf.html</loc></url>
+<url><loc>https://rootcoder007.github.io/rmorie-bricklayer/reference/core_sha256.html</loc></url>
 <url><loc>https://rootcoder007.github.io/rmorie-bricklayer/reference/download_data.html</loc></url>
 <url><loc>https://rootcoder007.github.io/rmorie-bricklayer/reference/friendly_download.html</loc></url>
 <url><loc>https://rootcoder007.github.io/rmorie-bricklayer/reference/index.html</loc></url>
@@ -13,11 +16,14 @@
 <url><loc>https://rootcoder007.github.io/rmorie-bricklayer/reference/record.html</loc></url>
 <url><loc>https://rootcoder007.github.io/rmorie-bricklayer/reference/resolve_via_ckan.html</loc></url>
 <url><loc>https://rootcoder007.github.io/rmorie-bricklayer/reference/resolve_via_ckan_search.html</loc></url>
+<url><loc>https://rootcoder007.github.io/rmorie-bricklayer/reference/rmbl_core_stats.html</loc></url>
 <url><loc>https://rootcoder007.github.io/rmorie-bricklayer/reference/sha256_file.html</loc></url>
+<url><loc>https://rootcoder007.github.io/rmorie-bricklayer/reference/to_ascii.html</loc></url>
 <url><loc>https://rootcoder007.github.io/rmorie-bricklayer/reference/validate_schema.html</loc></url>
 <url><loc>https://rootcoder007.github.io/rmorie-bricklayer/reference/verify_sha256.html</loc></url>
 <url><loc>https://rootcoder007.github.io/rmorie-bricklayer/reference/wayback_snapshot_url.html</loc></url>
 <url><loc>https://rootcoder007.github.io/rmorie-bricklayer/reference/write_manifest_json.html</loc></url>
 <url><loc>https://rootcoder007.github.io/rmorie-bricklayer/reference/write_summary_txt.html</loc></url>
+<url><loc>https://rootcoder007.github.io/rmorie-bricklayer/reference/write_text_fallback.html</loc></url>
 </urlset>
 

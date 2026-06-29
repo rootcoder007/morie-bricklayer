@@ -1,5 +1,7 @@
 # rmoriebricklayer
 
+[![r-universe](https://rootcoder007.r-universe.dev/badges/rmoriebricklayer)](https://rootcoder007.r-universe.dev/rmoriebricklayer)
+
 > Brick-proof, reproducible data bundles for R.
 
 `rmoriebricklayer` resolves open-data sources, records and verifies
@@ -90,6 +92,12 @@ AGPL-3.0-or-later.
 
 - [`apply_schema_validation()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/apply_schema_validation.md)
   : Apply Schema Validation, Stopping on Fatal Issues
+- [`ascii_fallback()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/ascii_fallback.md)
+  : Use Text As-Is, Falling Back to ASCII When It Cannot Be Represented
+- [`core_normal_pdf()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/core_normal_pdf.md)
+  : Normal density (C backend)
+- [`core_sha256()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/core_sha256.md)
+  : SHA-256 hex digest (C backend)
 - [`download_data()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/download_data.md)
   : Download a File
 - [`friendly_download()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/friendly_download.md)
@@ -108,8 +116,14 @@ AGPL-3.0-or-later.
   : Resolve a Download URL via CKAN package_show
 - [`resolve_via_ckan_search()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/resolve_via_ckan_search.md)
   : Resolve a Download URL via CKAN package_search
+- [`core_mean()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/rmbl_core_stats.md)
+  [`core_var()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/rmbl_core_stats.md)
+  [`core_cor()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/rmbl_core_stats.md)
+  : Fast summary statistics (C backend)
 - [`sha256_file()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/sha256_file.md)
   : Compute a File's SHA256 Digest
+- [`to_ascii()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/to_ascii.md)
+  : Transliterate Text to Plain ASCII
 - [`validate_schema()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/validate_schema.md)
   : Validate a Data Frame Against a Provenance Schema
 - [`verify_sha256()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/verify_sha256.md)
@@ -120,4 +134,6 @@ AGPL-3.0-or-later.
   : Write a Manifest to JSON
 - [`write_summary_txt()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/write_summary_txt.md)
   : Write a Plain-Language Run Summary
+- [`write_text_fallback()`](https://rootcoder007.github.io/rmorie-bricklayer/reference/write_text_fallback.md)
+  : Write Text as UTF-8, Falling Back to ASCII on an Encoding Error
 

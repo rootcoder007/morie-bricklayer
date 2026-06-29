@@ -11,8 +11,8 @@
 <script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Reproducible Data Bundles with Provenance and Fallback">
-<meta name="description" content="Tools for building brick-proof, reproducible data bundles. Resolves open-data sources through CKAN package_show and package_search endpoints, records and verifies provenance with SHA256 digests and Wayback Machine snapshots, validates downloaded data against a pinned schema, and falls back to schema-driven synthetic data when the real source is unreachable. Run records are captured in a manifest plus a plain-language summary so any result can be traced back to its inputs.">
-<meta property="og:description" content="Tools for building brick-proof, reproducible data bundles. Resolves open-data sources through CKAN package_show and package_search endpoints, records and verifies provenance with SHA256 digests and Wayback Machine snapshots, validates downloaded data against a pinned schema, and falls back to schema-driven synthetic data when the real source is unreachable. Run records are captured in a manifest plus a plain-language summary so any result can be traced back to its inputs.">
+<meta name="description" content="Tools for building brick-proof, reproducible data bundles. Resolves open-data sources through CKAN package_show and package_search endpoints, records and verifies provenance with SHA256 digests and Wayback Machine snapshots, validates downloaded data against a pinned schema, and falls back to schema-driven synthetic data when the real source is unreachable. Run records are captured in a manifest plus a plain-language summary so any result can be traced back to its inputs. Also ships a small compiled C core (fast summary statistics and a self-contained SHA-256) that sibling packages in the rmorie ecosystem reach through LinkingTo for a single, shared numeric and provenance-hashing backend.">
+<meta property="og:description" content="Tools for building brick-proof, reproducible data bundles. Resolves open-data sources through CKAN package_show and package_search endpoints, records and verifies provenance with SHA256 digests and Wayback Machine snapshots, validates downloaded data against a pinned schema, and falls back to schema-driven synthetic data when the real source is unreachable. Run records are captured in a manifest plus a plain-language summary so any result can be traced back to its inputs. Also ships a small compiled C core (fast summary statistics and a self-contained SHA-256) that sibling packages in the rmorie ecosystem reach through LinkingTo for a single, shared numeric and provenance-hashing backend.">
 <meta name="google-site-verification" content="8ORzeHrfoPIOrujfV-km-kXCi9HD8dvL5GYH-GqwjYI">
 </head>
 <body>
@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">rmoriebricklayer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,6 +49,7 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="rmoriebricklayer">rmoriebricklayer<a class="anchor" aria-label="anchor" href="#rmoriebricklayer"></a>
 </h1></div>
+<p><a href="https://rootcoder007.r-universe.dev/rmoriebricklayer" class="external-link"><img src="https://rootcoder007.r-universe.dev/badges/rmoriebricklayer" alt="r-universe"></a></p>
 <blockquote>
 <p>Brick-proof, reproducible data bundles for R.</p>
 </blockquote>
