@@ -523,6 +523,43 @@ recompute_dml_irm <- function(d) {
   list(res_pool = rp, res_by_year = rby)
 }
 
+## OPTIONAL canonical engine: if the author's own 'rmorie' package is installed,
+## use its rmorie::morie_otis_irm_dml() (ols outcome + logit propensity -- the
+## SAME learners as the published spec) instead of the self-contained DoubleML
+## port. It is ~300x faster (reference ~10 s vs ~24 min) and reproduces the
+## published effects to <=0.001. cluster_cols=NULL: we cross-check the EFFECT
+## estimates only (clustering changes the SE, not the point estimate; rmorie's
+## by-year cluster-SE path is separately buggy and unrelated to this check).
+recompute_dml_via_rmorie <- function(d) {
+  d <- data.table::copy(d)
+  d[, number_of_placements := as.integer(number_of_placements)]
+  d <- d[!is.na(number_of_placements) & number_of_placements > 0L]
+  d <- d[rep.int(seq_len(.N), number_of_placements)]
+  d[, Y := as.integer(suicide_risk_alert == "Yes")]
+  d[, D := as.integer(mental_health_alert == "Yes")]
+  d[, cluster_id := as.factor(unique_individual_id)]
+  one <- function(dat, xcov) {
+    for (cc in xcov) dat[[cc]] <- droplevels(as.factor(dat[[cc]]))
+    r <- rmorie::morie_otis_irm_dml(as.data.frame(dat), treatment = "D",
+           outcome = "Y", covariates = xcov, cluster_cols = NULL,
+           n_folds = 3L, seed = 1111111111L)
+    c(as.numeric(r$ate), as.numeric(r$atte))
+  }
+  x_pool <- c("gender", "age_category", "region_at_time_of_placement",
+              "region_most_recent_placement", "end_fiscal_year")
+  x_year <- setdiff(x_pool, "end_fiscal_year")
+  p   <- one(data.table::copy(d), x_pool)
+  yrs <- sort(unique(d$end_fiscal_year))
+  by  <- unlist(lapply(yrs, function(yy) one(d[end_fiscal_year == yy], x_year)))
+  list(
+    res_pool    = data.table(group = "Pooled 2023-25",
+                             estimand = c("ATE", "ATTE"), effect = p),
+    res_by_year = data.table(group = rep(as.character(yrs), each = 2L),
+                             estimand = rep(c("ATE", "ATTE"), length(yrs)),
+                             effect = by)
+  )
+}
+
 if (INPUT_MODE == "rdata" && exists("res_pool") && exists("res_by_year")) {
   cat("\n[7/8] Pre-computed DML estimates from RData\n")
   setDT(res_pool); setDT(res_by_year)
@@ -539,15 +576,22 @@ if (INPUT_MODE == "rdata" && exists("res_pool") && exists("res_by_year")) {
   record("DML_2025_ATTE",                res_by_year$effect[6], 0.1704, tol = 0.001, group = "DML")
 
 } else if (tolower(Sys.getenv("OTIS_DML_RECOMPUTE", "")) %in% c("1", "yes", "true", "y")) {
-  cat("\n[7/8] Recomputing DML from PUBLIC data (HEAVY + SLOW) ...\n")
-  cat("      ****************************************************************\n")
-  cat("      *  FINAL optional deep-verification. Uses DoubleML + mlr3 +     *\n")
-  cat("      *  mlr3learners; expands to ~1.9M placement-rows. Reference run:*\n")
-  cat("      *  ~24 min wall-clock + ~1.2 GB RAM on a single core (longer on *\n")
-  cat("      *  slower hardware). Checks a FRESH DoubleML IRM run against the *\n")
-  cat("      *  authors' published MRP estimates at tolerance +/- 0.02.       *\n")
-  cat("      ****************************************************************\n")
-  dml <- recompute_dml_irm(df)
+  if (requireNamespace("rmorie", quietly = TRUE)) {
+    cat("\n[7/8] Recomputing DML via canonical rmorie::morie_otis_irm_dml ...\n")
+    cat("      Using your installed 'rmorie' package (ols outcome + logit\n")
+    cat("      propensity -- the published learners). FAST: reference run ~10 s.\n")
+    cat("      Comparing to the published MRP estimates at tolerance +/- 0.02.\n")
+    dml <- recompute_dml_via_rmorie(df)
+  } else {
+    cat("\n[7/8] Recomputing DML from PUBLIC data (self-contained DoubleML) ...\n")
+    cat("      ****************************************************************\n")
+    cat("      *  HEAVY + SLOW fallback (no 'rmorie' installed). DoubleML +    *\n")
+    cat("      *  mlr3; expands to ~1.9M rows; reference ~24 min + ~1.2 GB RAM.*\n")
+    cat("      *  TIP: install 'rmorie' for the fast ~10 s canonical path.     *\n")
+    cat("      *  Checks a FRESH IRM run vs published MRP estimates +/- 0.02.   *\n")
+    cat("      ****************************************************************\n")
+    dml <- recompute_dml_irm(df)
+  }
   fwrite(dml$res_pool,    file.path(OUTPUT_DIR, "06_DML_res_pool.csv"))
   fwrite(dml$res_by_year, file.path(OUTPUT_DIR, "07_DML_res_by_year.csv"))
 
@@ -576,9 +620,10 @@ if (INPUT_MODE == "rdata" && exists("res_pool") && exists("res_by_year")) {
   cat("      recompute the 8 DML estimates from this public data and confirm\n")
   cat("      they match the authors' published MRP values (+/- 0.02) -> 37/37:\n")
   cat("          OTIS_DML_RECOMPUTE=1\n")
-  cat("      Do this LAST and only if you want full self-verification. It is\n")
-  cat("      HEAVY + SLOW (DoubleML/mlr3, ~1.9M rows; reference run ~24 min +\n")
-  cat("      ~1.2 GB RAM). Most reviewers can skip it.\n")
+  cat("      Do this LAST and only if you want full self-verification.\n")
+  cat("      FAST (~10 s) if 'rmorie' is installed (canonical morie_otis_irm_dml);\n")
+  cat("      otherwise a HEAVY ~24 min self-contained DoubleML fallback runs.\n")
+  cat("      Most reviewers can skip it.\n")
   for (nm in names(.dml_refs))
     record(nm, "not-computed", .dml_refs[[nm]], tol = 0, group = "DML")
 }

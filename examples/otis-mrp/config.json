@@ -24,8 +24,9 @@
     "DHARMa", "Hmisc", "jsonlite", "digest"
   ],
   "r_packages_optional": {
-    "_comment": "Heavy; only needed if the reviewer opts into the DML recompute (OTIS_DML_RECOMPUTE=1). Installed on demand, not required for the 28 deterministic checks.",
-    "packages": ["DoubleML", "mlr3", "mlr3learners"]
+    "_comment": "Only for the opt-in DML recompute (OTIS_DML_RECOMPUTE=1); NOT needed for the 28 deterministic checks. PREFERRED: install 'rmorie' -> canonical morie_otis_irm_dml runs the recompute in ~10s and reproduces the published effects to <=0.001. FALLBACK (no rmorie): the self-contained DoubleML port uses the packages below and takes ~24 min.",
+    "preferred": ["rmorie"],
+    "fallback": ["DoubleML", "mlr3", "mlr3learners"]
   },
 
   "data": {
