@@ -1,6 +1,6 @@
 Package: rmoriebricklayer
 Title: Reproducible Data Bundles with Provenance and Fallback
-Version: 0.2.0
+Version: 0.2.1
 Authors@R:
     person("Vansh Singh", "Ruhela", email = "vsruhela@proton.me",
            role = c("aut", "cre"),
