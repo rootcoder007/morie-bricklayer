@@ -56,9 +56,8 @@ write_manifest_json(man, "manifest.json")
 
 `rmoriebricklayer` is the reproducibility / provenance layer of the
 [MORIE](https://github.com/rootcoder007/morie) ecosystem, alongside
-[rmorie](https://github.com/rootcoder007/rmorie),
-[rmoriedata](https://github.com/rootcoder007/rmoriedata), and
-[rmorielite](https://github.com/rootcoder007/rmorielite).
+[rmorie](https://github.com/rootcoder007/rmorie) and
+[rmoriedata](https://github.com/rootcoder007/rmoriedata).
 
 ## License
 
